@@ -87,6 +87,9 @@ public class ListaSimple<T> {
         String s = "";
         if (x != null) {
             s += x.getInfo();
+            if (x.getSig() != null) {
+                s += ", ";
+            }
             s += mostrarRecursivo(x.getSig());
         }
         return s;
