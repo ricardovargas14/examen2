@@ -94,18 +94,16 @@ public class ListaCircularDoble<T> {
     // requisitos de examen:
 
     // método recursivo que muestre la lista
-    private String mostrarRecursivo(NodoDoble x) {
-        String s = "";
+    private String mostrarRecursivo(NodoDoble<T> x) {
         if (x == null) {
-            return s;
+            return "";
         } else {
-            s += x.getInfo();
-            if (x.getSig() != inicio) {
+            String s = x.getInfo().toString();
+            if (x.getSig() != null) {
                 s += ", ";
             }
-            s += mostrarRecursivo(x.getSig());
+            return s + mostrarRecursivo(x.getSig());
         }
-        return s;
     }
 
     public void mostrarRecursivo() {
@@ -151,5 +149,77 @@ public class ListaCircularDoble<T> {
         }
         return indice;
     }
-    
+
+    // método que elimina el dato que se encuentra en la posición que se le pasa
+    // como parámetro
+    public T eliminaPosición(int posición) {
+        T dato = null;
+        // si la posición es 0, se elimina el inicio
+        if (posición == 0) {
+            dato = eliminaInicio();
+        } else {
+            // si es la última posición, se elimina el final
+            if (inicio == fin) {
+                dato = eliminaInicio();
+            } else {
+                // si no es la primera ni la última posición, se busca el nodo
+                // anterior a la posición
+                NodoDoble<T> r = inicio;
+                int i = 0;
+                while (r != fin && i < posición - 1) {
+                    r = r.getSig();
+                    i++;
+                }
+                // si se encontró el nodo anterior a la posición, se elimina el
+                // nodo que sigue
+                if (r != fin) {
+                    dato = r.getSig().getInfo();
+                    r.setSig(r.getSig().getSig());
+                    r.getSig().setAnt(r);
+                }
+            }
+        }
+        return dato;
+    }
+
+    // método que ordena la lista con método de la burbuja
+    public void ordenarLista() {
+        if (inicio != null) {
+            NodoDoble<T> r = inicio;
+            do {
+                NodoDoble<T> s = r.getSig();
+                do {
+                    if (((Comparable) r.getInfo()).compareTo(s.getInfo()) > 0) {
+                        T aux = r.getInfo();
+                        r.setInfo(s.getInfo());
+                        s.setInfo(aux);
+                    }
+                    s = s.getSig();
+                } while (s != inicio);
+                r = r.getSig();
+            } while (r != fin);
+        }
+    }
+
+    // método que inserta un dato en la posición que se le pasa como parámetro
+    public void insertaEnPosición(T dato, int posición) {
+        NodoDoble<T> n = new NodoDoble<>();
+        n.setInfo(dato);
+        if (posición == 0) {
+            insertaInicio(dato);
+        } else {
+            NodoDoble<T> r = inicio;
+            int i = 0;
+            while (r != fin && i < posición - 1) {
+                r = r.getSig();
+                i++;
+            }
+            if (r != fin) {
+                n.setSig(r.getSig());
+                r.getSig().setAnt(n);
+                r.setSig(n);
+                n.setAnt(r);
+            }
+        }
+    }
 }

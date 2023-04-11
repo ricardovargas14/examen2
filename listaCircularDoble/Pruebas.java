@@ -30,5 +30,27 @@ public class Pruebas {
 
         System.out.println("Se prueba el método devuelve el indice del dato que se le pasa como parámetro");
         System.out.println(lista.buscar(4));
+
+        System.out.println("se prueba el método que elimina un dato que tiene el indice que se le pasa como parámetro");
+        // System.out.println(lista.eliminaPosición(1));
+        System.out.println(lista);
+        
+        System.out.println("se prueba el método que ordena el contenido de la lista");
+        lista.insertaInicio(1);
+        lista.insertaInicio(2);
+        // lista.insertaInicio(3);
+        // lista.insertaInicio(-5);
+        // lista.insertaInicio(2);
+        // lista.insertaInicio(10);
+        // lista.insertaInicio(32);
+        lista.insertaFinal(13);
+        // System.out.println(lista);
+        System.out.println(lista);
+        lista.ordenarLista();
+        System.out.println(lista);
+
+        System.out.println("Se prueba el método que inserta un dato en una posición que se le pasa como parámetro");
+        lista.insertaEnPosición(2, 3);
+        System.out.println(lista);
     }
 }
